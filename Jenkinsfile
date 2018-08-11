@@ -4,12 +4,14 @@ pipeline {
     stages {
         stage('Cleaning Stage') {
             steps {
-                if(isUnix()){
-                    echo "Unix System"
-                }
-                else{
-                    echo "Non Unix System"
-                }
+                script {
+                    if (isUnix() == true) {
+                            echo 'Unix'
+                        }
+                        else {
+                            echo 'Non Unix'
+                    }
+
                 withMaven(maven : 'MAVEN_HOME'){
                     bat 'mvn clean'
                 }
