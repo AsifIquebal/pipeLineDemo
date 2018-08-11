@@ -1,22 +1,22 @@
 if(isUnix()){
-    echo 'Unix System'
+    echo "Unix System"
 }
 else{
-    echo 'Non Ubinx System'
+    echo "Non Unix System"
 }
 pipeline {
     agent any
     stages {
         stage('Cleaning Stage') {
             steps {
-                withMaven(maven : 'MyMaven'){
+                withMaven(maven : 'MAVEN_HOME'){
                     bat 'mvn clean'
                 }
             }
         }
         stage('Testing Stage') {
               steps {
-                  withMaven(maven : 'MyMaven'){
+                  withMaven(maven : 'MAVEN_HOME'){
                       bat 'mvn test'
                   }
               }
