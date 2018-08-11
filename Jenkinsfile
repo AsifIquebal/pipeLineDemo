@@ -1,14 +1,15 @@
-if(isUnix()){
-    echo "Unix System"
-}
-else{
-    echo "Non Unix System"
-}
+
 pipeline {
     agent any
     stages {
         stage('Cleaning Stage') {
             steps {
+                if(isUnix()){
+                    echo "Unix System"
+                }
+                else{
+                    echo "Non Unix System"
+                }
                 withMaven(maven : 'MAVEN_HOME'){
                     bat 'mvn clean'
                 }
