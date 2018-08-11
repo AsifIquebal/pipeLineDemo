@@ -1,36 +1,46 @@
 pipeline {
     agent any
     stages {
-
         stage('Cleaning Stage') {
-
             steps {
-            script {
-                                if (isUnix() == true) {
-                                    echo 'Unix'
-                                }
-                                else {
-                                    echo 'Non Unix'
-                                }
+                script {
+                    if (isUnix() == true) {
+                        echo 'Unix'
+                        withMaven(maven : 'MAVEN_HOME') {
+                            sh 'mvn clean'
                         }
-                withMaven(maven : 'MAVEN_HOME') {
-                    bat 'mvn clean'
+                    }
+                    else {
+                        echo 'Non Unix: Assuming its Windows'
+                        withMaven(maven : 'MAVEN_HOME') {
+                            bat 'mvn clean'
+                        }
+                    }
                 }
             }
         }
         stage('Testing Stage') {
-                  steps {
-                      withMaven(maven : 'MAVEN_HOME') {
-                          sh 'mvn test'
-                      }
-                  }
+            steps {
+                script {
+                    if (isUnix() == true) {
+                        echo 'Unix'
+                            withMaven(maven : 'MAVEN_HOME') {
+                                sh 'mvn test'
+                            }
+                    }
+                    else {
+                        echo 'Non Unix: Assuming its Windows'
+                        withMaven(maven : 'MAVEN_HOME') {
+                            bat 'mvn test'
+                        }
+                    }
+                }
+            }
         }
-
     }
     post {
         always {
             echo 'I will always say Hello again!'
         }
     }
-
 }
