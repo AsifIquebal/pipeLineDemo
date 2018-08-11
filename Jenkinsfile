@@ -1,3 +1,9 @@
+if(isUnix()){
+    echo 'Unix System'
+}
+else{
+    echo 'Non Ubinx System'
+}
 pipeline {
     agent any
     stages {
