@@ -1,6 +1,14 @@
 pipeline {
     agent any
     stages {
+        script {
+            if (isUnix() == true) {
+                echo 'Unix'
+            }
+            else {
+                echo 'Non Unix'
+            }
+         }
         stage('Cleaning Stage') {
             steps {
                 withMaven(maven : 'MAVEN_HOME') {
@@ -15,6 +23,7 @@ pipeline {
                       }
                   }
         }
+
     }
     post {
         always {
