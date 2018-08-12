@@ -19,6 +19,11 @@ pipeline {
                 }
             }
         }
+        stage('User Input') {
+            steps {
+                input('Do you want to proceed?')
+            }
+        }
         stage('Testing Stage') {
             steps {
                 script {
