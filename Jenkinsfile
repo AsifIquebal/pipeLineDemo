@@ -42,6 +42,20 @@ pipeline {
                 }
             }
         }
+        stage('Parallel'){
+            parallel{
+                stage('Process 1'){
+                    steps{
+                        echo 'Parallel execution: Process 1'
+                    }
+                }
+                stage('Process 2'){
+                    steps{
+                        echo 'Parallel execution: Process 2'
+                    }
+                }
+            }
+        }
     }
     post {
         always {
